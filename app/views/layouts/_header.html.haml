@@ -1,26 +1,61 @@
-%nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  %a.navbar-brand{:href => "#"} ブランド
+%nav.navbar.navbar-expand-lg.navbar-light.bg-wight
+  .navbar-brand
+    = link_to '/' do
+      %img.logo-mark{:alt => "ふぁしり", :src => "/assets/facili_logo_mark.png"}
   %button.navbar-toggler{"aria-controls" => "Navber", "aria-expanded" => "false", "aria-label" => "ナビゲーションの切替", "data-target" => "#Navber", "data-toggle" => "collapse", :type => "button"}
     %span.navbar-toggler-icon
   #Navber.collapse.navbar-collapse
     %ul.navbar-nav.mr-auto
       %li.nav-item.active
-        %a.nav-link{:href => "#"}
-          ホーム
-          %span.sr-only (現位置)
-      %li.nav-item
-        %a.nav-link{:href => "#"} リンク
-      %li.nav-item.dropdown
-        %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-          ドロップダウン
-        .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
-          %a.dropdown-item{:href => "#"} メニュー1
-          %a.dropdown-item{:href => "#"} メニュー2
-          .dropdown-divider
-          %a.dropdown-item{:href => "#"} その他
-      %li.nav-item
-        %a.nav-link.disabled{:href => "#"} 無効
-    %form.form-inline.my-2.my-lg-0
-      %input.form-control.mr-sm-2{"aria-label" => "検索...", :placeholder => "検索...", :type => "search"}/
-      %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} 検索
+        - if user_signed_in?
+          %li.nav-link
+            = link_to"プロフィール編集", "/users/#{current_user.id}/edit"
+          %li.nav-link
+            = link_to"ログアウト",destroy_user_session_path, method: :delete
+          %li.nav-link
+            = link_to'このサイトの使い方','/top/information'
+          - if current_user.permission == "administrator"
+            %li.nav-link
+              = link_to"授業登録","/lessons/new", method: :get
+        - else
+          %li.nav-link
+            = link_to"新規登録",new_user_registration_path
+          %li.nav-link
+            = link_to"ログイン",new_user_session_path
+          %li.nav-link
+            = link_to'このサイトの使い方','/top/information'
+    -#     %a.nav-link{:href => "#"}
+    -#       ホーム
+    -#       %span.sr-only (現位置)
+    -#   %li.nav-item
+    -#     %a.nav-link{:href => "#"} リンク
+    -#   %li.nav-item.dropdown
+    -#     %a#navbarDropdown.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+    -#       ドロップダウン
+    -#     .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+    -#       %a.dropdown-item{:href => "#"} メニュー1
+    -#       %a.dropdown-item{:href => "#"} メニュー2
+    -#       .dropdown-divider
+    -#       %a.dropdown-item{:href => "#"} その他
+    -#   %li.nav-item
+    -#     %a.nav-link.disabled{:href => "#"} 無効
+    -# %form.form-inline.my-2.my-lg-0
+    -#   %input.form-control.mr-sm-2{"aria-label" => "検索...", :placeholder => "検索...", :type => "search"}/
+    -#   %button.btn.btn-outline-success.my-2.my-sm-0{:type => "submit"} 検索
   / /.navbar-collapse
+
+
+  -# %header
+  -#   = link_to '/' do
+  -#     %img.logo-marks{:alt => "ふぁしり", :src => "/assets/facili_logo_mark.png", class: 'mt-2'}
+  -#   .head-btns.pull-right.mt-3
+  -#     - if user_signed_in?
+  -#       = link_to"プロフィール編集", "/users/#{current_user.id}/edit", class: "btn btn-success py-4"
+  -#       = link_to"ログアウト",destroy_user_session_path, method: :delete, class: "btn btn-warning py-4"
+  -#       = link_to'このサイトの使い方','/top/information', class: "btn btn-primary mr-2 py-4"
+  -#       - if current_user.permission == "administrator"
+  -#         = link_to"授業登録","/lessons/new", method: :get, class: "btn btn-light"
+  -#     - else
+  -#       = link_to"新規登録",new_user_registration_path, class: "btn btn-success py-4"
+  -#       = link_to"ログイン",new_user_session_path, class: "btn btn-info py-4"
+  -#       = link_to'このサイトの使い方','/top/information', class: "btn btn-primary py-4"
