@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
   root "welcome#index"
+  get "/information", to: 'welcome#information'
   resources :lessons, only: [:create, :new, :show]
   resources :top, only: [:create, :index, :new] do
     collection do
